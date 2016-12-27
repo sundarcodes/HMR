@@ -166,10 +166,39 @@
 
 
 
-  // $(document).ready(function() {
-  //   // Do all the UI Initialization part here
-  //   $('select').material_select();
-  // });
+  $(document).ready(function() {
+    // Do all the UI Initialization part here
+    listOfStations.forEach(station => {
+      let innerHtml = `<option value=${station.code}>${station.name}</option>`;
+      $('#source').append(innerHtml);
+      $('#dest').append(innerHtml);
+    })
+    $('select').material_select();
+    $('#result').hide();
+
+    $('#fareBtn').on('click', () => {
+      console.log('btn clicked');
+      var result = calculateFare(
+        getStationFromCode($('#source')[0].value, listOfStations), 
+        getStationFromCode($('#dest')[0].value,listOfStations),
+        Lines,
+        junctionsBetweenLines,
+        listOfStations
+        );
+      console.log(result);
+      $('#startStation').html(getStationFromCode($('#source')[0].value, listOfStations).name);
+      $('#endStation').html(getStationFromCode($('#dest')[0].value, listOfStations).name);
+      $('#fare').html(result.fare);
+      $('#numberOfHops').html(result.hops);
+      if (result.hopJunction) {
+        $('#junction').html(result.hopJunction);
+      } else {
+        $('#junction').html('No Hops');
+      }
+      $('#result').show();
+    })
+
+  });
 
 
 
@@ -237,50 +266,50 @@ function getStationFromCode(stationCode, listOfStations) {
 
 // Test Cases
 
-let arrInputs = [
-  {
-    source: 'A21',
-    dest: 'A2'
-  },
-  {
-    source: 'B1',
-    dest: 'B12'
-  },
-  {
-    source: 'C1',
-    dest: 'A2'
-  },
-  {
-    source: 'A17',
-    dest: 'B13'
-  },
-  {
-    source: 'A12',
-    dest: 'A12'
-  },
-  {
-    source: 'A12',
-    dest: 'A14'
-  }
-];
+// let arrInputs = [
+//   {
+//     source: 'A21',
+//     dest: 'A2'
+//   },
+//   {
+//     source: 'B1',
+//     dest: 'B12'
+//   },
+//   {
+//     source: 'C1',
+//     dest: 'A2'
+//   },
+//   {
+//     source: 'A17',
+//     dest: 'B13'
+//   },
+//   {
+//     source: 'A12',
+//     dest: 'A12'
+//   },
+//   {
+//     source: 'A12',
+//     dest: 'A14'
+//   }
+// ];
 
-arrInputs.forEach(input => {
-  console.log('*************************************************');
-  console.log('                 Hyderabad Metro Rail            ');
-  console.log('Source: ' + getStationFromCode(input.source, listOfStations).name +'             ');
-  console.log('Destination: ' + getStationFromCode(input.dest, listOfStations).name +'             ');
-  let result = calculateFare
-  (getStationFromCode(input.source, listOfStations), 
-    getStationFromCode(input.dest, listOfStations),
-    Lines,
-    junctionsBetweenLines,
-    listOfStations
-    );
-  console.log('Cost:  Rs ' + result.fare);
-  console.log('Hops: ' + result.hops);
-  if (result.hopJunction) {
-    console.log('Hop Junction: ' + result.hopJunction);
-  }
-  console.log('*************************************************');
-});
+// arrInputs.forEach(input => {
+//   console.log('*************************************************');
+//   console.log('                 Hyderabad Metro Rail            ');
+//   console.log('Source: ' + getStationFromCode(input.source, listOfStations).name +'             ');
+//   console.log('Destination: ' + getStationFromCode(input.dest, listOfStations).name +'             ');
+//   let result = calculateFare
+//   (getStationFromCode(input.source, listOfStations), 
+//     getStationFromCode(input.dest, listOfStations),
+//     Lines,
+//     junctionsBetweenLines,
+//     listOfStations
+//     );
+//   console.log('Cost:  Rs ' + result.fare);
+//   console.log('Hops: ' + result.hops);
+//   if (result.hopJunction) {
+//     console.log('Hop Junction: ' + result.hopJunction);
+//   }
+//   console.log('*************************************************');
+// });
 
