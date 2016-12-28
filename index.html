@@ -2,30 +2,57 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Hyderabad Metro Ticket Fare Calculator</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Hyderabad Metro Ticketing Info</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css" integrity="sha256-fGJODaGYSINeMscXSbyu3k+sCt9ON9XOpsVOcvco3Qg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />    
     <link rel="stylesheet" href="app.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js" integrity="sha256-pVJ6toFhRjat2LSvxugXvMnNDp33i00nfn0CpPXZevs=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.0.1/Rx.min.js" integrity="sha256-TeWVfZ29ZE2tO8al/1wPR2TAOWZ1GRXbZ90H5p/dNMY=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.22.1/ramda.min.js" integrity="sha256-b/25EM7jXpOzqCVHvB1hVyJ3oigzqMEGBds/eBHHASg=" crossorigin="anonymous"></script>    
     <script src="app.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
   <body>
     <div class="container">
       <div class="row">
-        <div class="col s12">
+        <div class="col s12 m8">
           <h5 class="center">Know your hyderabad metro fare before you travel </h5>
         </div>
+        <div class="col m4 hide-on-small-only">
+        <ul class="collapsible popout" data-collapsible="accordion">
+          <li>
+            <div class="collapsible-header">
+              <i class="fa fa-sticky-note-o" aria-hidden="true"></i>
+              Read Me
+            </div>
+            <div class="collapsible-body">
+              <ul class="collection">
+                <li class="collection-item">This is just a demo app</li>
+                <li class="collection-item">Fares are no way close to actual</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div class="collapsible-header">
+              <i class="fa fa-list" aria-hidden="true"></i>
+              To do
+            </div>
+            <div class="collapsible-body">
+              <ul class="collection">
+                <li class="collection-item">To calculate the shortest path</li>
+                <li class="collection-item">Store data in a backend</li>
+              </ul>
+            </div>
+          </li>          
+        </ul>
+        </div>
         <div class="input-field col s12">
-          <i class="material-icons prefix">train</i>
           <select id="source">
           </select>
           <label>Which station you want to start</label>
         </div>
         <div class="input-field col s12">
-          <i class="material-icons prefix">train</i>
           <select id="dest">
           </select>
           <label>Where do you want to get down</label>
@@ -35,36 +62,31 @@
         </div>
 
         <div class="col s12 m12" id="result" >
-          <h5 class="header center">Ticket Fare </h5>
+          <h5 class="header center">Travel Info </h5>
           <div class="card horizontal">
             <div class="card-stacked">
               <div class="card-content">
                 <div class="col s6 m6">
-                  <i class="material-icons prefix">train</i>
-                  <!-- <span class="hide-on-small-only">Starting Station :</span> -->
+                  <i class="fa fa-train" aria-hidden="true"></i>
                   <span id="startStation"></span>
                 </div>
                 <div class="col s6 m6">
-                  <i class="material-icons prefix">train</i>
-                  <!-- <span class="hide-on-small-only">Getting Down Station :</span> -->
+                  <i class="fa fa-train" aria-hidden="true"></i>
                   <span id="endStation"></span>
                 </div>
               </div>
               <div class="card-action">
                 <div class="col s4 m4">
-                <i class="material-icons prefix">attach_money</i>
-                  <!-- <span class="hide-on-small-only">Fare</span> -->
-                  <span id="fare"></span>
+                <i class="fa fa-inr" aria-hidden="true"></i>
+                  <span id="fare" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Total Fare"></span>
                 </div>
                 <div class="col s4 m4">
-                <i class="material-icons prefix">subway</i>
-                  <!-- <span class="hide-on-small-only">Number of hops </span> -->
-                  <span id="numberOfHops"></span>
+                 <i class="fa fa-subway " aria-hidden="true"></i>
+                  <span id="numberOfHops" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Total stations to cross"></span>
                 </div>
                 <div class="col s4 m4">
-                  <i class="material-icons prefix">transfer_within_a_station</i>
-                  <!-- <span class="hide-on-small-only">Hop over</span> -->
-                  <span id="junction"></span>
+                <i class="fa fa-exchange" aria-hidden="true"></i>
+                  <span id="junction" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Station to switch over"></span>
                 </div>                
               </div>
             </div>

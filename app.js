@@ -1,5 +1,9 @@
 'use strict';
 
+
+  // All your data structures here
+
+
   // Populate all Stations with its code and location
 
   var listOfStations = [ { code: 'A1', name: 'Miyapur', line: 1 },
@@ -70,7 +74,7 @@
   { code: 'C23', name: 'Shilparamam', line: 3 } ];
 
 
-
+  // A Map for knowing junctions line wise
   var junctionsBetweenLines = {
     1: {
       2: 'X2',
@@ -86,7 +90,9 @@
     }
   };
 
-var junctionsMeetingLines = {
+  // A Map for knowing line junctionwise
+
+  var junctionsMeetingLines = {
     'X1': {
       'X2': 1,
       'X3': 3
@@ -102,42 +108,42 @@ var junctionsMeetingLines = {
   };
 
 
-  // Data Structure to hold lines with the station code and position
+  // Map to hold lines with the station code and position
   var Lines = { 
-  '1':{
-    stations:[ 
-     { code: 'A1', position: 1 },
-     { code: 'A2', position: 2 },
-     { code: 'A3', position: 3 },
-     { code: 'A4', position: 4 },
-     { code: 'A5', position: 5 },
-     { code: 'A6', position: 6 },
-     { code: 'A7', position: 7 },
-     { code: 'A8', position: 8 },
-     { code: 'A9', position: 9 },
-     { code: 'A10', position: 10 },
-     { code: 'X1', position: 11 },
-     { code: 'A12', position: 12 },
-     { code: 'A13', position: 13 },
-     { code: 'A14', position: 14 },
-     { code: 'A15', position: 15 },
-     { code: 'A16', position: 16 },
-     { code: 'A17', position: 17 },
-     { code: 'A18', position: 18 },
-     { code: 'A19', position: 19 },
-     { code: 'X2', position: 20 },
-     { code: 'A21', position: 21 },
-     { code: 'A22', position: 22 },
-     { code: 'A23', position: 23 },
-     { code: 'A24', position: 24 },
-     { code: 'A25', position: 25 },
-     { code: 'A26', position: 26 },
-     { code: 'A27', position: 27 } ],
-     fare: 2.5
-   },
-  '2':
-  {
-   stations:[
+    '1':{
+      stations:[ 
+      { code: 'A1', position: 1 },
+      { code: 'A2', position: 2 },
+      { code: 'A3', position: 3 },
+      { code: 'A4', position: 4 },
+      { code: 'A5', position: 5 },
+      { code: 'A6', position: 6 },
+      { code: 'A7', position: 7 },
+      { code: 'A8', position: 8 },
+      { code: 'A9', position: 9 },
+      { code: 'A10', position: 10 },
+      { code: 'X1', position: 11 },
+      { code: 'A12', position: 12 },
+      { code: 'A13', position: 13 },
+      { code: 'A14', position: 14 },
+      { code: 'A15', position: 15 },
+      { code: 'A16', position: 16 },
+      { code: 'A17', position: 17 },
+      { code: 'A18', position: 18 },
+      { code: 'A19', position: 19 },
+      { code: 'X2', position: 20 },
+      { code: 'A21', position: 21 },
+      { code: 'A22', position: 22 },
+      { code: 'A23', position: 23 },
+      { code: 'A24', position: 24 },
+      { code: 'A25', position: 25 },
+      { code: 'A26', position: 26 },
+      { code: 'A27', position: 27 } ],
+      fare: 2.5
+    },
+    '2':
+    {
+     stations:[
      { code: 'B1', position: 1 },
      { code: 'X3', position: 2 },
      { code: 'B3', position: 3 },
@@ -154,46 +160,46 @@ var junctionsMeetingLines = {
      { code: 'B14', position: 14 },
      { code: 'B15', position: 15 },
      { code: 'B16', position: 16 } ],
-    fare: 2
-  },
+     fare: 2
+   },
 
-  '3': {
+   '3': {
     stations:[
-     { code: 'C1', position: 1 },
-     { code: 'C2', position: 2 },
-     { code: 'C3', position: 3 },
-     { code: 'C4', position: 4 },
-     { code: 'C5', position: 5 },
-     { code: 'C6', position: 6 },
-     { code: 'C7', position: 7 },
-     { code: 'C8', position: 8 },
-     { code: 'X3', position: 9 },
-     { code: 'C10', position: 10 },
-     { code: 'C11', position: 11 },
-     { code: 'C12', position: 12 },
-     { code: 'C13', position: 13 },
-     { code: 'X1', position: 14 },
-     { code: 'C15', position: 15 },
-     { code: 'C16', position: 16 },
-     { code: 'C17', position: 17 },
-     { code: 'C18', position: 18 },
-     { code: 'C19', position: 19 },
-     { code: 'C20', position: 20 },
-     { code: 'C21', position: 21 },
-     { code: 'C22', position: 22 },
-     { code: 'C23', position: 23 } ],
+    { code: 'C1', position: 1 },
+    { code: 'C2', position: 2 },
+    { code: 'C3', position: 3 },
+    { code: 'C4', position: 4 },
+    { code: 'C5', position: 5 },
+    { code: 'C6', position: 6 },
+    { code: 'C7', position: 7 },
+    { code: 'C8', position: 8 },
+    { code: 'X3', position: 9 },
+    { code: 'C10', position: 10 },
+    { code: 'C11', position: 11 },
+    { code: 'C12', position: 12 },
+    { code: 'C13', position: 13 },
+    { code: 'X1', position: 14 },
+    { code: 'C15', position: 15 },
+    { code: 'C16', position: 16 },
+    { code: 'C17', position: 17 },
+    { code: 'C18', position: 18 },
+    { code: 'C19', position: 19 },
+    { code: 'C20', position: 20 },
+    { code: 'C21', position: 21 },
+    { code: 'C22', position: 22 },
+    { code: 'C23', position: 23 } ],
     fare: 3 
-    },
-   fixedFare: {
+  },
+  fixedFare: {
     hops: 3,
     fare: 10
-   }    
-   };
+  }    
+};
 
 
+// Do all the UI Initialization part here
 
-  $(document).ready(function() {
-    // Do all the UI Initialization part here
+$(document).ready(function() {
     listOfStations.forEach(station => {
       let innerHtml = `<option value=${station.code}>${station.name}</option>`;
       $('#source').append(innerHtml);
@@ -211,6 +217,7 @@ var junctionsMeetingLines = {
         junctionsMeetingLines,
         listOfStations
         );
+      console.log(result);
       $('#startStation').html(getStationFromCode($('#source')[0].value, listOfStations).name);
       $('#endStation').html(getStationFromCode($('#dest')[0].value, listOfStations).name);
       $('#fare').html(result.fare);
@@ -218,13 +225,12 @@ var junctionsMeetingLines = {
       if (result.hopJunction) {
         $('#junction').html(result.hopJunction);
       } else {
-        $('#junction').html('No Hops');
+        $('#junction').html('No Interchange');
       }
       $('#result').show();
     })
 
   });
-
 
 
 function calculateFare(source, dest, Lines, junctionsBetweenLines, junctionsMeetingLines, listOfStations) {
@@ -237,41 +243,24 @@ function calculateFare(source, dest, Lines, junctionsBetweenLines, junctionsMeet
   }
   // Separate Logic when junction is involved in source/dest
   if (isJunction(source) || isJunction(dest)) {
-    return computeFareInvolvingJunctions(source, dest, Lines, junctionsBetweenLines, junctionsMeetingLines, listOfStations);
+    return generateTravelDetailsForJunctionCase(source, dest, Lines, junctionsBetweenLines, junctionsMeetingLines, listOfStations);
   } else {
     if (isSameLine(source, dest)){
-      return computeSameLineFare(source, dest, Lines);
+      return generateTravelDetailsForSameLine(source, dest, Lines);
     } else {
-      return computeDifferentLineFare(source, dest, Lines, junctionsBetweenLines, listOfStations);      
+      return generateTravelDetailsForDiffLine(source, dest, Lines, junctionsBetweenLines, listOfStations);      
     }
   }
- }
-
-function computeSameLineFare(source, dest, Lines) {
-  return {
-    fare: (findNoOfStationsBetween(source, dest, source.line, Lines) > Lines.fixedFare.hops ? getFareForSameLine(source, dest, source.line, Lines) : Lines.fixedFare.fare),
-    hops: findNoOfStationsBetween(source, dest, source.line, Lines)
-  };
 }
 
-function computeDifferentLineFare(source, dest, Lines, junctionsBetweenLines, listOfStations) {
-  var junction = findNearestJunctionToSwitchBetween(
-    source.line, dest.line, junctionsBetweenLines, listOfStations);
-  return {
-    fare: (findNoOfStationsAcrossHop(source, dest, junction, Lines) > Lines.fixedFare.hops ? getFareAcrossHop(source, dest, junction, Lines) : Lines.fixedFare.fare ),
-    hops: findNoOfStationsAcrossHop(source, dest, junction, Lines),
-    hopJunction: junction.name
-  }
-}
-
- function computeFareInvolvingJunctions(source, dest, Lines, junctionsBetweenLines, junctionsMeetingLines, listOfStations){
+function generateTravelDetailsForJunctionCase(source, dest, Lines, junctionsBetweenLines, junctionsMeetingLines, listOfStations){
     // Case 1 when both are junctions
     if (isJunction(source) && isJunction(dest)) {
       // Find the common line
       let commonLine = junctionsMeetingLines[source.code][dest.code];
       let newSource = getStationForLine(source, commonLine, listOfStations);
       let newDest = getStationForLine(dest, commonLine, listOfStations);
-      return computeSameLineFare(newSource, newDest, Lines);
+      return generateTravelDetailsForSameLine(newSource, newDest, Lines);
     } // Case 2 when source is junction
     else if (isJunction(source)) {
       return computeJunctionFare(source, dest, Lines, junctionsBetweenLines, listOfStations);  
@@ -279,77 +268,122 @@ function computeDifferentLineFare(source, dest, Lines, junctionsBetweenLines, li
     else {
       return computeJunctionFare(dest, source, Lines, junctionsBetweenLines, listOfStations);
     }
+  }
+
+  function generateTravelDetailsForSameLine(source, dest, Lines) {
+    return {
+      fare: computeFinalFare(Lines, getRoutesBetween(source, dest, source.line, Lines)),
+      hops: findNoOfStationsBetween(source, dest, source.line, Lines),
+      route: getRoutesBetween(source, dest, source.line, Lines)
+    };
+  }
+
+  function generateTravelDetailsForDiffLine(source, dest, Lines, junctionsBetweenLines, listOfStations) {
+    var junction = findNearestJunctionToSwitchBetween(
+      source.line, dest.line, junctionsBetweenLines, listOfStations);
+    return {
+      fare: computeFinalFare(Lines, R.union(getRoutesBetween(source, junction, source.line, Lines),getRoutesBetween(junction, dest, dest.line, Lines))),
+      hops: findNoOfStationsAcrossHop(source, dest, junction, Lines),
+      hopJunction: junction.name,
+      route: R.union(getRoutesBetween(source, junction, source.line, Lines), 
+        getRoutesBetween(junction, dest, dest.line, Lines))
+    }
+  }
+
+  function computeJunctionFare(source, dest, Lines, junctionsBetweenLines, listOfStations) {
+  // Check if junction is in the same line as of dest
+  if (source.line != dest.line) {
+    // Find if the source is also a part of destination line
+    if (isStationPartOfLine(source, dest.line, Lines)) {
+      let newSource = getStationForLine(source, dest.line, listOfStations);
+      return generateTravelDetailsForSameLine(newSource, dest, Lines);
+    } else {
+      return generateTravelDetailsForDiffLine(source, dest, Lines, junctionsBetweenLines, listOfStations);
+    }
+  }
+  else {
+    return generateTravelDetailsForSameLine(source, dest, Lines);
+  }
+} 
+
+function computeFinalFare(Lines, routesList) {
+    // Reversing to take into the account the junction switch and appropriate fare calculation
+    let reversedList = R.reverse(routesList);
+    // Uniq to avoid calculating junctions twice
+    let routes = R.uniqWith((route1, route2) => route1.code == route2.code)(reversedList);
+    if ((routes.length - 1) <= Lines.fixedFare.hops) {
+      return Lines.fixedFare.fare;
+    } else {
+      // Compute Total Fare by calculating fares for each station 
+      // and add it to the fixed fare for 3 stations 
+      // and subtract it from the 1st 3 station fares
+      return routes.slice(1).map(route => Lines[route.line].fare)
+      .reduce((a,b) => a + b, 0)
+      + Lines.fixedFare.fare - 
+      R.takeLast(Lines.fixedFare.hops, routes).map(route => Lines[route.line].fare)
+      .reduce((a,b) => a + b, 0);
+    }
  }
 
- function computeJunctionFare(source, dest, Lines, junctionsBetweenLines, listOfStations) {
-      // Check if junction is in the same line as of dest
-      if (source.line != dest.line) {
-        // Find if the source is also a part of destination line
-        if (isStationPartOfLine(source, dest.line, Lines)) {
-          let newSource = getStationForLine(source, dest.line, listOfStations);
-          return computeSameLineFare(newSource, dest, Lines);
-        } else {
-          return computeDifferentLineFare(source, dest, Lines, junctionsBetweenLines, listOfStations);
+function getRoutesBetween(source, dest, line, Lines) {
+    let sourceStationPosition = 
+    Lines[line].stations.find(station => station.code == source.code).position;
+    let destStationPosition = 
+    Lines[line].stations.find(station => station.code == dest.code).position;  
+    let minPosition = Math.min(sourceStationPosition, destStationPosition);
+    let maxPosition = Math.max(sourceStationPosition, destStationPosition);
+    let listOfIntermediateStations = 
+    Lines[line].stations.filter(station => station.position >= minPosition && 
+      station.position <= maxPosition).map(station => {
+        return {
+          code: station.code,
+          line: line
         }
+      });
+      if (sourceStationPosition > destStationPosition) {
+        return listOfIntermediateStations.reverse();
       }
-      else {
-        return computeSameLineFare(source, dest, Lines);
-      }
-    } 
+      return listOfIntermediateStations;
+    }
 
-function isJunction(station) {
-  return !!station.isJunction;
-}
+  function isJunction(station) {
+    return !!station.isJunction;
+  }
 
-function isStationPartOfLine(stn, line, Lines) {
-  return !!Lines[line].stations.find(station => station.code === stn.code);
-}
+  function isStationPartOfLine(stn, line, Lines) {
+    return !!Lines[line].stations.find(station => station.code === stn.code);
+  }
 
-function getStationForLine(stn, line, listOfStations) {
-  return listOfStations.find(station => station.code == stn.code && 
-    station.line == line);
-}
+  function getStationForLine(stn, line, listOfStations) {
+    return listOfStations.find(station => station.code == stn.code && 
+      station.line == line);
+  }
 
-function findNoOfStationsAcrossHop(source, dest, junction, Lines) {
-  return findNoOfStationsBetween(source, junction, source.line, Lines) + 
-      findNoOfStationsBetween(junction, dest, dest.line, Lines)
-}
+  function findNoOfStationsAcrossHop(source, dest, junction, Lines) {
+    return findNoOfStationsBetween(source, junction, source.line, Lines) + 
+    findNoOfStationsBetween(junction, dest, dest.line, Lines)
+  }
 
-function getFareAcrossHop(source, dest, junction, Lines) {
-  return getFareForSameLine(source, junction, source.line, Lines) +
-        getFareForSameLine(junction, dest, dest.line, Lines)
-}
+  function findNoOfStationsBetween(source, dest, line, Lines) {
+    var stationsList = Lines[line].stations;
+    var sourceStationPosition = 
+    stationsList.find(station => station.code == source.code).position;
+    var destStationPosition = 
+    stationsList.find(station => station.code == dest.code).position;  
+    return Math.abs(sourceStationPosition - destStationPosition);
+  }
 
-function getFareForSameLine(source, dest, line, Lines) {
-  return getFareForLine(findNoOfStationsBetween(source, dest, line, Lines), 
-    line, Lines);
-}
+  function isSameLine(source, dest) {
+    return source.line === dest.line;
+  }
 
-function findNoOfStationsBetween(source, dest, line, Lines) {
-  var stationsList = Lines[line].stations;
-  var sourceStationPosition = 
-  stationsList.find(station => station.code == source.code).position;
-  var destStationPosition = 
-  stationsList.find(station => station.code == dest.code).position;  
-  return Math.abs(sourceStationPosition - destStationPosition);
-}
+  function findNearestJunctionToSwitchBetween(line1, line2, junctionsBetweenLines, listOfStations) {
+    return getStationFromCode(junctionsBetweenLines[line1][line2], listOfStations);
+  }
 
-function getFareForLine(numStations, line, Lines) {
-  return numStations * Lines[line].fare;
-}
-
-function isSameLine(source, dest) {
-  return source.line === dest.line;
-}
-
-function findNearestJunctionToSwitchBetween(line1, line2, junctionsBetweenLines, listOfStations) {
-  return getStationFromCode(junctionsBetweenLines[line1][line2], listOfStations);
-}
-
-function getStationFromCode(stationCode, listOfStations) {
-  return listOfStations.find(station => station.code == stationCode);
-}
-
+  function getStationFromCode(stationCode, listOfStations) {
+    return listOfStations.find(station => station.code == stationCode);
+  }
 
 
 // Test Cases
