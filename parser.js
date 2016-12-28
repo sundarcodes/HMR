@@ -7,7 +7,7 @@ var stationsLineMapper = {
   'X' : 4
 }
 
-// console.log(str.split(''));
+// console.log(str.split(';'));
 
 var stationList = [];
 var linesList = {};
