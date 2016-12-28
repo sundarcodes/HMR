@@ -5,6 +5,7 @@
     <title>Hyderabad Metro Ticket Fare Calculator</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css" integrity="sha256-fGJODaGYSINeMscXSbyu3k+sCt9ON9XOpsVOcvco3Qg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="app.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js" integrity="sha256-pVJ6toFhRjat2LSvxugXvMnNDp33i00nfn0CpPXZevs=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.0.1/Rx.min.js" integrity="sha256-TeWVfZ29ZE2tO8al/1wPR2TAOWZ1GRXbZ90H5p/dNMY=" crossorigin="anonymous"></script>
@@ -18,13 +19,13 @@
           <h5 class="center">Know your hyderabad metro fare before you travel </h5>
         </div>
         <div class="input-field col s12">
-          <i class="material-icons prefix">flight_takeoff</i>
+          <i class="material-icons prefix">train</i>
           <select id="source">
           </select>
           <label>Which station you want to start</label>
         </div>
         <div class="input-field col s12">
-          <i class="material-icons prefix">flight_land</i>
+          <i class="material-icons prefix">train</i>
           <select id="dest">
           </select>
           <label>Where do you want to get down</label>
@@ -34,35 +35,35 @@
         </div>
 
         <div class="col s12 m12" id="result" >
-          <h2 class="header center">Ticket Fare </h2>
+          <h5 class="header center">Ticket Fare </h5>
           <div class="card horizontal">
             <div class="card-stacked">
               <div class="card-content">
                 <div class="col s6 m6">
-                  <i class="material-icons prefix">flight_takeoff</i>
-                  <span class="hide-on-small-only">Starting Station :</span>
+                  <i class="material-icons prefix">train</i>
+                  <!-- <span class="hide-on-small-only">Starting Station :</span> -->
                   <span id="startStation"></span>
                 </div>
                 <div class="col s6 m6">
-                  <i class="material-icons prefix">flight_land</i>
-                  <span class="hide-on-small-only">Getting Down Station :</span>
+                  <i class="material-icons prefix">train</i>
+                  <!-- <span class="hide-on-small-only">Getting Down Station :</span> -->
                   <span id="endStation"></span>
                 </div>
               </div>
               <div class="card-action">
                 <div class="col s4 m4">
                 <i class="material-icons prefix">attach_money</i>
-                  <span class="hide-on-small-only">Fare</span>
+                  <!-- <span class="hide-on-small-only">Fare</span> -->
                   <span id="fare"></span>
                 </div>
                 <div class="col s4 m4">
                 <i class="material-icons prefix">subway</i>
-                  <span class="hide-on-small-only">Number of hops </span>
+                  <!-- <span class="hide-on-small-only">Number of hops </span> -->
                   <span id="numberOfHops"></span>
                 </div>
                 <div class="col s4 m4">
                   <i class="material-icons prefix">transfer_within_a_station</i>
-                  <span class="hide-on-small-only">Hop over at</span>
+                  <!-- <span class="hide-on-small-only">Hop over</span> -->
                   <span id="junction"></span>
                 </div>                
               </div>

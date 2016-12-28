@@ -72,14 +72,37 @@
 
 
   var junctionsBetweenLines = {
-    '1-2': 'X2',
-    '2-1': 'X2',
-    '1-3': 'X1',
-    '3-1': 'X1',
-    '2-3': 'X3',
-    '3-2': 'X3'
-  }
+    1: {
+      2: 'X2',
+      3: 'X1'
+    },
+    2: {
+      1: 'X2',
+      3: 'X3'
+    },
+    3: {
+      1: 'X1',
+      2: 'X3'
+    }
+  };
 
+var junctionsMeetingLines = {
+    'X1': {
+      'X2': 1,
+      'X3': 3
+    },
+    'X2': {
+      'X1': 1,
+      'X3': 2
+    },
+    'X3': {
+      'X1': 3,
+      'X2': 2
+    }
+  };
+
+
+  // Data Structure to hold lines with the station code and position
   var Lines = { 
   '1':{
     stations:[ 
@@ -185,6 +208,7 @@
         getStationFromCode($('#dest')[0].value,listOfStations),
         Lines,
         junctionsBetweenLines,
+        junctionsMeetingLines,
         listOfStations
         );
       $('#startStation').html(getStationFromCode($('#source')[0].value, listOfStations).name);
@@ -203,55 +227,86 @@
 
 
 
-function calculateFare(source, dest, Lines, junctionsBetweenLines, listOfStations) {
+function calculateFare(source, dest, Lines, junctionsBetweenLines, junctionsMeetingLines, listOfStations) {
 
-  // Check if any of source or destination is a junction and choose the appropriate line
-  if (isJunction(source)) {
-    // Check if Destination is also a junction
-    if (isJunction(dest)) {
-        if (source.line != dest.line) {
-          // Find the common line
-          let newDest = getStationFromCode(getJunctionForLine(dest, source.line, listOfStations), listOfStations);
-          return {
-            fare: (findNoOfStationsBetween(source, newDest, source.line, Lines) > Lines.fixedFare.hops ? getFareForSameLine(source, newDest, source.line, Lines) : Lines.fixedFare.fare),
-            hops: findNoOfStationsBetween(source, newDest, source.line, Lines)
-          }
-        }
-    } else {
-      // Check if junction is in the same line as of dest
-      // if (source.line != dest.line)
+  if (source.code == dest.code) {
+    return {
+      fare: 0,
+      hops: 0
     }
   }
-
-  // Check the distance between the station codes
-  if (isSameLine(source, dest)){
-    return {
-      fare: (findNoOfStationsBetween(source, dest, source.line, Lines) > Lines.fixedFare.hops ? getFareForSameLine(source, dest, source.line, Lines) : Lines.fixedFare.fare),
-      hops: findNoOfStationsBetween(source, dest, source.line, Lines)
-    }
+  // Separate Logic when junction is involved in source/dest
+  if (isJunction(source) || isJunction(dest)) {
+    return computeFareInvolvingJunctions(source, dest, Lines, junctionsBetweenLines, junctionsMeetingLines, listOfStations);
   } else {
-    var junction = getStationFromCode(
-      findNearestJunctionToSwitchBetween(
-        source.line, dest.line, junctionsBetweenLines),listOfStations);
-    return {
-      fare: (findNoOfStationsAcrossHop(source, dest, junction, Lines) > Lines.fixedFare.hops ? getFareAcrossHop(source, dest, junction, Lines) : Lines.fixedFare.fare ),
-      hops: findNoOfStationsAcrossHop(source, dest, junction, Lines),
-      hopJunction: junction.name
+    if (isSameLine(source, dest)){
+      return computeSameLineFare(source, dest, Lines);
+    } else {
+      return computeDifferentLineFare(source, dest, Lines, junctionsBetweenLines, listOfStations);      
     }
   }
  }
+
+function computeSameLineFare(source, dest, Lines) {
+  return {
+    fare: (findNoOfStationsBetween(source, dest, source.line, Lines) > Lines.fixedFare.hops ? getFareForSameLine(source, dest, source.line, Lines) : Lines.fixedFare.fare),
+    hops: findNoOfStationsBetween(source, dest, source.line, Lines)
+  };
+}
+
+function computeDifferentLineFare(source, dest, Lines, junctionsBetweenLines, listOfStations) {
+  var junction = findNearestJunctionToSwitchBetween(
+    source.line, dest.line, junctionsBetweenLines, listOfStations);
+  return {
+    fare: (findNoOfStationsAcrossHop(source, dest, junction, Lines) > Lines.fixedFare.hops ? getFareAcrossHop(source, dest, junction, Lines) : Lines.fixedFare.fare ),
+    hops: findNoOfStationsAcrossHop(source, dest, junction, Lines),
+    hopJunction: junction.name
+  }
+}
+
+ function computeFareInvolvingJunctions(source, dest, Lines, junctionsBetweenLines, junctionsMeetingLines, listOfStations){
+    // Case 1 when both are junctions
+    if (isJunction(source) && isJunction(dest)) {
+      // Find the common line
+      let commonLine = junctionsMeetingLines[source.code][dest.code];
+      let newSource = getStationForLine(source, commonLine, listOfStations);
+      let newDest = getStationForLine(dest, commonLine, listOfStations);
+      return computeSameLineFare(newSource, newDest, Lines);
+    } // Case 2 when source is junction
+    else if (isJunction(source)) {
+      return computeJunctionFare(source, dest, Lines, junctionsBetweenLines, listOfStations);  
+    } // Case 3 when destination is a junction
+    else {
+      return computeJunctionFare(dest, source, Lines, junctionsBetweenLines, listOfStations);
+    }
+ }
+
+ function computeJunctionFare(source, dest, Lines, junctionsBetweenLines, listOfStations) {
+      // Check if junction is in the same line as of dest
+      if (source.line != dest.line) {
+        // Find if the source is also a part of destination line
+        if (isStationPartOfLine(source, dest.line, Lines)) {
+          let newSource = getStationForLine(source, dest.line, listOfStations);
+          return computeSameLineFare(newSource, dest, Lines);
+        } else {
+          return computeDifferentLineFare(source, dest, Lines, junctionsBetweenLines, listOfStations);
+        }
+      }
+      else {
+        return computeSameLineFare(source, dest, Lines);
+      }
+    } 
 
 function isJunction(station) {
   return !!station.isJunction;
 }
 
-function isJunctionPartOfLine(junction, line, Lines) {
-  return !!Lines[line].stations.find(station => station.code === junction.code);
+function isStationPartOfLine(stn, line, Lines) {
+  return !!Lines[line].stations.find(station => station.code === stn.code);
 }
 
-function getJunctionForLine(junction, line, listOfStations) {
-  console.log(junction,line);
-  return listOfStations.find(station => station.code == junction.code && 
+function getStationForLine(stn, line, listOfStations) {
+  return listOfStations.find(station => station.code == stn.code && 
     station.line == line);
 }
 
@@ -287,8 +342,8 @@ function isSameLine(source, dest) {
   return source.line === dest.line;
 }
 
-function findNearestJunctionToSwitchBetween(line1, line2, junctionsBetweenLines) {
-  return junctionsBetweenLines[line1 + '-' + line2];
+function findNearestJunctionToSwitchBetween(line1, line2, junctionsBetweenLines, listOfStations) {
+  return getStationFromCode(junctionsBetweenLines[line1][line2], listOfStations);
 }
 
 function getStationFromCode(stationCode, listOfStations) {
@@ -323,7 +378,11 @@ function getStationFromCode(stationCode, listOfStations) {
 //   {
 //     source: 'A12',
 //     dest: 'A14'
-//   }
+//   },
+//   {
+//     source: 'X3',
+//     dest: 'X1'
+//   },
 // ];
 
 // arrInputs.forEach(input => {
