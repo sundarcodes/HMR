@@ -180,7 +180,6 @@
     $('#result').hide();
 
     $('#fareBtn').on('click', () => {
-      console.log('btn clicked');
       var result = calculateFare(
         getStationFromCode($('#source')[0].value, listOfStations), 
         getStationFromCode($('#dest')[0].value,listOfStations),
@@ -188,7 +187,6 @@
         junctionsBetweenLines,
         listOfStations
         );
-      console.log(result);
       $('#startStation').html(getStationFromCode($('#source')[0].value, listOfStations).name);
       $('#endStation').html(getStationFromCode($('#dest')[0].value, listOfStations).name);
       $('#fare').html(result.fare);
@@ -207,6 +205,24 @@
 
 function calculateFare(source, dest, Lines, junctionsBetweenLines, listOfStations) {
 
+  // Check if any of source or destination is a junction and choose the appropriate line
+  if (isJunction(source)) {
+    // Check if Destination is also a junction
+    if (isJunction(dest)) {
+        if (source.line != dest.line) {
+          // Find the common line
+          let newDest = getStationFromCode(getJunctionForLine(dest, source.line, listOfStations), listOfStations);
+          return {
+            fare: (findNoOfStationsBetween(source, newDest, source.line, Lines) > Lines.fixedFare.hops ? getFareForSameLine(source, newDest, source.line, Lines) : Lines.fixedFare.fare),
+            hops: findNoOfStationsBetween(source, newDest, source.line, Lines)
+          }
+        }
+    } else {
+      // Check if junction is in the same line as of dest
+      // if (source.line != dest.line)
+    }
+  }
+
   // Check the distance between the station codes
   if (isSameLine(source, dest)){
     return {
@@ -224,6 +240,20 @@ function calculateFare(source, dest, Lines, junctionsBetweenLines, listOfStation
     }
   }
  }
+
+function isJunction(station) {
+  return !!station.isJunction;
+}
+
+function isJunctionPartOfLine(junction, line, Lines) {
+  return !!Lines[line].stations.find(station => station.code === junction.code);
+}
+
+function getJunctionForLine(junction, line, listOfStations) {
+  console.log(junction,line);
+  return listOfStations.find(station => station.code == junction.code && 
+    station.line == line);
+}
 
 function findNoOfStationsAcrossHop(source, dest, junction, Lines) {
   return findNoOfStationsBetween(source, junction, source.line, Lines) + 
