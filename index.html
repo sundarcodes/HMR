@@ -4,12 +4,14 @@
     <meta charset="utf-8">
     <title>Hyderabad Metro Ticketing Info</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css" integrity="sha256-fGJODaGYSINeMscXSbyu3k+sCt9ON9XOpsVOcvco3Qg=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
     <link rel="stylesheet" href="app.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js" integrity="sha256-pVJ6toFhRjat2LSvxugXvMnNDp33i00nfn0CpPXZevs=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.0.1/Rx.min.js" integrity="sha256-TeWVfZ29ZE2tO8al/1wPR2TAOWZ1GRXbZ90H5p/dNMY=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.22.1/ramda.min.js" integrity="sha256-b/25EM7jXpOzqCVHvB1hVyJ3oigzqMEGBds/eBHHASg=" crossorigin="anonymous"></script>    
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.0.1/Rx.min.js" integrity="sha256-TeWVfZ29ZE2tO8al/1wPR2TAOWZ1GRXbZ90H5p/dNMY=" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.22.1/ramda.min.js" integrity="sha256-b/25EM7jXpOzqCVHvB1hVyJ3oigzqMEGBds/eBHHASg=" crossorigin="anonymous"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.23.0/ramda.js" integrity="sha256-+tez7CrvhTdrcPOAdrghnMuXoaDM1SCmOIS6vZ0FuQU=" crossorigin="anonymous"></script>
+    <!-- <script src="app.js"></script> -->
     <script src="app.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
@@ -44,7 +46,7 @@
                 <li class="collection-item">Store data in a backend</li>
               </ul>
             </div>
-          </li>          
+          </li>
         </ul>
         </div>
         <div class="input-field col s12">
@@ -87,7 +89,7 @@
                 <div class="col s4 m4">
                 <i class="fa fa-exchange" aria-hidden="true"></i>
                   <span id="junction" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Station to switch over"></span>
-                </div>                
+                </div>
               </div>
             </div>
           </div>
